@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maia Buljeta | Screenplay Reader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,77,77,0.2), rgba(255,153,51,0.2));
+            animation: gradientFlow 10s infinite linear;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff4d4d, #ff9933, #ff4d4d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 5s ease infinite;
+            text-shadow: 0 0 20px rgba(255,77,77,0.5);
+        }
+
+        .services {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #111111, #1a1a1a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,77,77,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card {
+            background: rgba(26,26,26,0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,153,51,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+            animation: rotate 10s linear infinite;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff4d4d, #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .price::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4d4d, transparent);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #ff4d4d, #ff9933);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9933, #ff4d4d);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,77,77,0.3);
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .about {
+            padding: 5rem 2rem;
+            background: #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,153,51,0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .email-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(26,26,26,0.8);
+            border-radius: 15px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .email-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .email {
+            color: #ff9933;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .email::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #ff4d4d, #ff9933);
+            transition: width 0.3s ease;
+        }
+
+        .email:hover {
+            color: #ff4d4d;
+        }
+
+        .email:hover::after {
+            width: 100%;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes gradientFlow {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(50%) rotate(360deg); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .service-card ul {
+            list-style: none;
+        }
+
+        .service-card ul li {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-card ul li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: #ff9933;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="floating">Transform Your Story</h1>
+            <p data-aos="fade-up" data-aos-delay="200" style="font-size: 1.5rem; margin-top: 2rem;">Your Screenplay's Journey to Excellence Begins Here</p>
+        </div>
+    </div>
+
+    <section class="services">
+        <div class="service-grid">
+            <div class="service-card" data-aos="fade-right">
+                <h3 style="font-size: 2rem;">Feature Film Analysis</h3>
+                <p class="price">$800</p>
+                <ul>
+                    <li>15 pages of detailed notes</li>
+                    <li>Deep character development analysis</li>
+                    <li>Comprehensive plot structure review</li>
+                    <li>Market potential assessment</li>
+                    <li>Industry positioning strategy</li>
+                </ul>
+            </div>
+            <div class="service-card" data-aos="fade-left" data-aos-delay="200">
+                <h3 style="font-size: 2rem;">Short Film Analysis</h3>
+                <p class="price">$150</p>
+                <ul>
+                    <li>7 pages of comprehensive notes</li>
+                    <li>Scene-by-scene breakdown</li>
+                    <li>Pacing and rhythm evaluation</li>
+                    <li>Festival strategy recommendations</li>
+                    <li>Distribution pathway analysis</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" data-aos="fade-up">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: 3rem; margin-bottom: 2rem;">Elevate Your Vision</h2>
+            <p style="margin: 2rem 0; font-size: 1.2rem; line-height: 1.8;">With years of experience as a film educator at the Jacob Burns Film Center Media Arts Lab and collaborations with industry giants like Degree and Hellmann's, I bring a unique perspective to your storytelling journey. Let's transform your screenplay into a compelling narrative that captures hearts and minds.</p>
+            <div class="email-container">
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Ready to begin your screenplay's transformation?</p>
+                <a href="mailto:maiabuljeta@gmail.com" class="email">maiabuljeta@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html>
