@@ -34,6 +34,85 @@
             overflow: hidden;
         }
 
+
+
+/* For the gradient animated text in hero */
+.hero-content p {
+    background: linear-gradient(90deg, #FFB347, #FF78A5, #FD85AE, #E0A9F5, #FFB347);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 8s ease infinite;
+}
+
+/* Enhanced hero background animation */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, 
+            rgba(255, 77, 77, 0.2), 
+            rgba(255, 153, 51, 0.2), 
+            rgba(255, 102, 178, 0.2), 
+            rgba(153, 51, 255, 0.2)
+        );
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: 1;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+    opacity: 0.7;
+    animation: pulseAnimation 8s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+        transform: scale(1);
+    }
+    50% {
+        background-position: 100% 50%;
+        transform: scale(1.1);
+    }
+    100% {
+        background-position: 0% 50%;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulseAnimation {
+    0% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.5; }
+}
+
+
+
+        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -372,7 +451,7 @@
 <body>
     <div class="hero">
         <div class="hero-content">
-            <h1 class="floating">Transform Your Story</h1>
+            <h1 class="floating">TRANSFORM YOUR STORY</h1>
             <p data-aos="fade-up" data-aos-delay="200" style="font-size: 1.5rem; margin-top: 2rem;">Your Screenplay's Journey to Excellence Begins Here</p>
         </div>
     </div>
