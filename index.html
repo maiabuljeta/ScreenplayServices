@@ -131,16 +131,65 @@
             z-index: 2;
         }
 
-         h1 {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(270deg, #ff4d4d, #ff9933, #ff6b6b, #ffa54f);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: smoothGradient 2s ease infinite;
-            text-shadow: 0 0 20px rgba(255,77,77,0.5);
-        }
+  h1 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(270deg, #ff4d4d, #ff9933, #ff6b6b, #ffa54f);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: smoothGradient 4s ease infinite, textRotation 5s infinite, textPulse 3s infinite, shadowGlow 1.5s infinite alternate;
+    text-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+}
+
+@keyframes smoothGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes textRotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes textPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shadowGlow {
+    0% {
+        text-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 40px rgba(255, 77, 77, 0.9);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+    }
+}
+
 
         /* Hero animation enhancement */
         .hero::before {
